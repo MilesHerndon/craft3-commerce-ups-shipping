@@ -1,0 +1,74 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Commerce UPS Shipping plugin for Craft CMS 3.x
+ *
+ * Commerce UPS Shipping Settings.twig
+ *
+ * @author    MilesHerndon
+ * @copyright Copyright (c) 2019 MilesHerndon
+ * @link      https://milesherndon.com
+ * @package   CommerceUpsShipping
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("milesherndon\\commerceupsshipping\\assetbundles\\commerceupsshipping\\CommerceUpsShippingAsset") %}
+
+{{ forms.textField({
+    label: 'Shipping Address Zip',
+    id: 'shippingAddressZip',
+    name: 'shippingAddressZip',
+    value: settings['shippingAddressZip'],
+    errors: settings.getErrors('shippingAddressZip')
+    })
+}}
+
+{{ forms.textField({
+    label: 'UPS Shipper Number',
+    id: 'upsShipperNumber',
+    name: 'upsShipperNumber',
+    value: settings['upsShipperNumber'],
+    errors: settings.getErrors('upsShipperNumber')
+    })
+}}
+
+{{ forms.textField({
+    label: 'UPS License Number',
+    id: 'upsLicenseNumber',
+    name: 'upsLicenseNumber',
+    value: settings['upsLicenseNumber'],
+    errors: settings.getErrors('upsLicenseNumber')
+    })
+}}
+
+{{ forms.textField({
+    label: 'UPS Account Username',
+    id: 'upsAccountUsername',
+    name: 'upsAccountUsername',
+    value: settings['upsAccountUsername'],
+    errors: settings.getErrors('upsAccountUsername')
+    })
+}}
+
+{{ forms.textField({
+    label: 'UPS Account Password',
+    type: 'password',
+    id: 'upsAccountPassword',
+    name: 'upsAccountPassword',
+    value: settings['upsAccountPassword'],
+    errors: settings.getErrors('upsAccountPassword')
+    })
+}}
+
+{{ forms.textField({
+    label: 'Shipping Markup Percentage',
+    type: 'number',
+    id: 'markup',
+    name: 'markup',
+    value: settings['markup'],
+    errors: settings.getErrors('markup')
+    })
+}}

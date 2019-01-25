@@ -1,0 +1,43 @@
+{
+    "name": "milesherndon/commerce-ups-shipping",
+    "description": "Plugin to get UPS shipping data.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "commerce ups shipping"
+    ],
+    "support": {
+        "docs": "???",
+        "issues": "???"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MilesHerndon",
+            "homepage": "https://milesherndon.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "milesherndon\\commerceupsshipping\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Commerce UPS Shipping",
+        "handle": "commerce-ups-shipping",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "changelogUrl": "???",
+        "components": {
+            "commerceUpsShippingService": "milesherndon\\commerceupsshipping\\services\\CommerceUpsShippingService"
+        },
+        "class": "milesherndon\\commerceupsshipping\\CommerceUpsShipping"
+    }
+}
