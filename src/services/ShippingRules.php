@@ -14,8 +14,6 @@ use milesherndon\commerceupsshipping\CommerceUpsShipping;
 
 use Craft;
 use craft\base\Component;
-use craft\commerce\services\ShippingMethods;
-use craft\commerce\models\ShippingMethod;
 use craft\commerce\elements\Order;
 use craft\base\Plugin;
 
@@ -32,7 +30,9 @@ class ShippingRules extends Component
 {
     private $_description;
     private $_price;
-    // private $_rate;
+    private $_name;
+    private $_handle;
+    private $_type;
     private $_order;
     private $_devMode;
     private $_service;
@@ -51,6 +51,9 @@ class ShippingRules extends Component
         $this->_service = $service['handle'];
         $this->_order = $order;
         $this->_description = $service['description'];
+        $this->_name = $service['name'];
+        $this->_handle = $service['handle'];
+        $this->_type = $service['type'];
         $this->_devMode = $devMode;
         $this->_pluginSettings = CommerceUpsShipping::getInstance()->getSettings();
 
@@ -64,7 +67,6 @@ class ShippingRules extends Component
         $shipperNumber        = $this->_devMode ? '4V7791'           : $this->_pluginSettings->upsShipperNumber;
         $from_zip             = $this->_devMode ? '46203'            : $this->_pluginSettings->shippingAddressZip;
 
-
         $objUpsRate = new \UpsShippingQuote();
 
         $accountInfo =(object)[
@@ -74,7 +76,6 @@ class ShippingRules extends Component
             'strShipperNumber' => $shipperNumber,
             'strShipperZip' => $from_zip
         ];
-
 
         $shippingAddress = $this->_order->shippingAddress;
         $strDestinationZip = $shippingAddress->zipCode;
@@ -103,10 +104,6 @@ class ShippingRules extends Component
             $strPackageWeight,
             $boolReturnPriceOnly
         );
-
-        // echo '<pre>';
-        // var_dump($service);
-        // echo '</pre>';
 
         if ($result) {
             $this->_price = $this->_markupCalc($result);
@@ -236,5 +233,21 @@ class ShippingRules extends Component
     public function getDescription()
     {
         return $this->_description;
+    }
+
+    /**
+     * Returns a description of the rates applied by this rule;
+     * Zero will not make any changes.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->_name;
+    }
+
+    public function getPrice()
+    {
+        return $this->_price;
     }
 }
