@@ -34,7 +34,6 @@ class ShippingRules extends Component
     private $_handle;
     private $_type;
     private $_order;
-    private $_devMode;
     private $_service;
     private $_pluginSettings;
 
@@ -46,7 +45,7 @@ class ShippingRules extends Component
      * @param null $rate
      */
 
-    public function __construct($service, $order, $devMode=false)
+    public function __construct($service, $order)
     {
         $this->_service = $service['handle'];
         $this->_order = $order;
@@ -54,18 +53,17 @@ class ShippingRules extends Component
         $this->_name = $service['name'];
         $this->_handle = $service['handle'];
         $this->_type = $service['type'];
-        $this->_devMode = $devMode;
         $this->_pluginSettings = CommerceUpsShipping::getInstance()->getSettings();
 
         if (!$this->_order->shippingAddress) {
             return false;
         }
 
-        $shipperLicenseNumber = $this->_devMode ? 'ED23C557C8328E48' : $this->_pluginSettings->upsLicenseNumber;
-        $shipperUsername      = $this->_devMode ? 'mark.reckard'     : $this->_pluginSettings->upsAccountUsername;
-        $shipperPassword      = $this->_devMode ? 'h@ndShak3'        : $this->_pluginSettings->upsAccountPassword;
-        $shipperNumber        = $this->_devMode ? '4V7791'           : $this->_pluginSettings->upsShipperNumber;
-        $from_zip             = $this->_devMode ? '46203'            : $this->_pluginSettings->shippingAddressZip;
+        $shipperLicenseNumber = $this->_pluginSettings->upsLicenseNumber;
+        $shipperUsername      = $this->_pluginSettings->upsAccountUsername;
+        $shipperPassword      = $this->_pluginSettings->upsAccountPassword;
+        $shipperNumber        = $this->_pluginSettings->upsShipperNumber;
+        $from_zip             = $this->_pluginSettings->shippingAddressZip;
 
         $objUpsRate = new \UpsShippingQuote();
 
