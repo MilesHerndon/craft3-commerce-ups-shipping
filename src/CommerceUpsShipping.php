@@ -104,6 +104,40 @@ class CommerceUpsShipping extends Plugin
              $event->rules[] = [['firstName', 'lastName', 'address1', 'city', 'state', 'zipCode',], 'required'];
         });
 
+        Event::on(Address::class, Address::EVENT_BEFORE_VALIDATE, function (Event $event) {
+            $address = $event->sender;
+
+            if (empty($address->firstName)) {
+                $address->addError('firstName', Craft::t('app', 'First Name is required'));
+                $event->handled = true;
+            }
+
+            if (empty($address->lastName)) {
+                $address->addError('lastName', Craft::t('app', 'Last Name is required'));
+                $event->handled = true;
+            }
+
+            if (empty($address->address1)) {
+                $address->addError('address1', Craft::t('app', 'Address Line 1 is required'));
+                $event->handled = true; // stop other handlers for this event
+            }
+
+            if (empty($address->city)) {
+                $address->addError('city', Craft::t('app', 'City is required'));
+                $event->handled = true;
+            }
+
+            if (empty($address->state)) {
+                $address->addError('state', Craft::t('app', 'State is required'));
+                $event->handled = true;
+            }
+
+            if (empty($address->zipCode)) {
+                $address->addError('zipCode', Craft::t('app', 'Zip Code is required'));
+                $event->handled = true;
+            }
+        });
+
         Craft::info(
             Craft::t(
                 'commerce-ups-shipping',
