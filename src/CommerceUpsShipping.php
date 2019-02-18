@@ -26,6 +26,8 @@ use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
 use craft\events\RegisterUrlRulesEvent;
 use craft\commerce\events\RegisterAvailableShippingMethodsEvent;
+use craft\commerce\events\RegisterAddressRulesEvent;
+use craft\commerce\models\Address;
 
 use yii\base\Event;
 
@@ -97,6 +99,10 @@ class CommerceUpsShipping extends Plugin
                 $event->shippingMethods[] = new UpsThreeDaySelectShippingMethod();
             }
         );
+
+        Event::on(Address::class, Address::EVENT_REGISTER_ADDRESS_VALIDATION_RULES, function(RegisterAddressRulesEvent $event) {
+             $event->rules[] = [['firstName', 'lastName', 'address1', 'city', 'state', 'zipCode',], 'required'];
+        });
 
         Craft::info(
             Craft::t(
