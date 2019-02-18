@@ -101,7 +101,7 @@ class CommerceUpsShipping extends Plugin
         );
 
         Event::on(Address::class, Address::EVENT_REGISTER_ADDRESS_VALIDATION_RULES, function(RegisterAddressRulesEvent $event) {
-             $event->rules[] = [['firstName', 'lastName', 'address1', 'city', 'state', 'zipCode',], 'required'];
+             $event->rules[] = [['firstName', 'lastName', 'address1', 'city', 'stateId', 'zipCode',], 'required'];
         });
 
         Event::on(Address::class, Address::EVENT_BEFORE_VALIDATE, function (Event $event) {
@@ -128,7 +128,7 @@ class CommerceUpsShipping extends Plugin
             }
 
             if (empty($address->state)) {
-                $address->addError('state', Craft::t('app', 'State is required'));
+                $address->addError('stateId', Craft::t('app', 'State is required'));
                 $event->handled = true;
             }
 
