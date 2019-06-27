@@ -5,7 +5,7 @@
  **/
 class UpsShippingQuote {
 
-	var $strRateWebServiceLocation = 'https://www.ups.com/ups.app/xml/Rate'; // Production URL
+	var $strRateWebServiceLocation = 'https://onlinetools.ups.com/ups.app/xml/Rate'; // Production URL
 
 	/**
 	 * @var boolDebugMode boolean
