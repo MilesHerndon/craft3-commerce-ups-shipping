@@ -20,6 +20,7 @@ use craft\commerce\services\ShippingMethods;
 
 use Craft;
 use craft\base\Plugin;
+use craft\base\Model;
 use craft\services\Plugins;
 use craft\events\PluginEvent;
 use craft\web\twig\variables\CraftVariable;
@@ -100,7 +101,7 @@ class CommerceUpsShipping extends Plugin
             }
         );
 
-        Event::on(Address::class, Address::EVENT_REGISTER_ADDRESS_VALIDATION_RULES, function(RegisterAddressRulesEvent $event) {
+        Event::on(Address::class, Model::EVENT_DEFINE_RULES, function(RegisterAddressRulesEvent $event) {
              $event->rules[] = [['firstName', 'lastName', 'address1', 'city', 'stateId', 'zipCode',], 'required'];
         });
 
