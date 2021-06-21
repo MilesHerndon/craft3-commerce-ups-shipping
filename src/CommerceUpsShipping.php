@@ -95,10 +95,10 @@ class CommerceUpsShipping extends Plugin
             ShippingMethods::class,
             ShippingMethods::EVENT_REGISTER_AVAILABLE_SHIPPING_METHODS,
             function(RegisterAvailableShippingMethodsEvent $event) {
-                $event->shippingMethods[] = new UpsGroundShippingMethod();
-                $event->shippingMethods[] = new UpsNextDayAirShippingMethod();
-                $event->shippingMethods[] = new UpsSecondDayAirShippingMethod();
-                $event->shippingMethods[] = new UpsThreeDaySelectShippingMethod();
+                $event->shippingMethods[] = new UpsGroundShippingMethod;
+                $event->shippingMethods[] = new UpsNextDayAirShippingMethod;
+                $event->shippingMethods[] = new UpsSecondDayAirShippingMethod;
+                $event->shippingMethods[] = new UpsThreeDaySelectShippingMethod;
             }
         );
 
